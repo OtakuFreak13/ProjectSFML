@@ -21,5 +21,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="SFMLStuff.props">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
