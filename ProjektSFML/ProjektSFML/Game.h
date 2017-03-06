@@ -4,6 +4,7 @@
 #include"Player.h"
 #include"Enemy.h"
 
+
 class Game :public sf::Drawable
 {
 private:
@@ -11,6 +12,14 @@ private:
 	sf::Sprite backgroundSprite;
 	Player player;
 	Enemy enemy;
+	sf::CircleShape ball;
+
+	sf::Clock delayTime;
+	sf::Time time;
+	sf::Time time2;
+	
+	
+	void collision();
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;	
 public:

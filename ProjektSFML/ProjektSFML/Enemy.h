@@ -2,15 +2,45 @@
 #define ENEMY_H
 
 #include "Entity.h"
+#include <time.h>
 class Enemy :
 	public Entity
 {
 private:
-	float enemySpeed = 180.0f;
+	sf::Sprite spriteSheet;
+	sf::IntRect rectSourceSprite;
+	float enemySpeed = 130.0f;
+	sf::Texture texture;
+
+	sf::Vector2i currentKeyFrame;
+	sf::Vector2i keyFrameSize;
+	int spriteSheetWidth;
+	int spriteSheetHeight;
+	float animationSpeed;
+	float keyFrameDuration;
+
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+
+	int attackDamage;
+	int health;
+	bool collided = false;
+	bool wasAttacking = false;
+	bool isAttacking = false;
 public:
-	Enemy(int enemyNr);
+	Enemy();
 	~Enemy();
-	void Update(float dt, float x = 1.0f, float y = 1.0f);
+	void move(float dt);
+	void Update(float dt);
+	sf::Sprite getSpriteSheet();
+	void setCollided(int tf);
+	bool getWasAttacking();
+	void setWasAttacking(int tf);
+	bool getIsAttacking();
+	void setIsAttacking(int tf);
+	int attack();
+	void recevieDamage(int damage);
+	bool death();
+	int getHealth();
 };
 
 #endif // !ENEMY_H

@@ -3,6 +3,7 @@
 
 
 
+
 int main() {
 
 	sf::RenderWindow window(sf::VideoMode(640, 480), "My First SFML Game");
@@ -19,8 +20,13 @@ int main() {
 				window.close();
 			}
 		}
-
-		game.Update(gameTime.restart().asSeconds);
+		int mX = sf::Mouse::getPosition(window).x;
+		int mY = sf::Mouse::getPosition(window).y;
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+		{
+			std::cout << "Mouse x: " << mX << endl << "Mouse y: " << mY << endl;
+		}
+		game.Update(gameTime.restart().asSeconds());
 		window.clear();
 		window.draw(game);
 		window.display();

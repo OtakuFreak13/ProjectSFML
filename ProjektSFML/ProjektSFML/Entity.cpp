@@ -27,6 +27,21 @@ void Entity::setTextureName(string fileName)
 	this->textureFileName = fileName;
 }
 
+string Entity::getTextureName()
+{
+	return this->textureFileName;
+}
+
+void Entity::loadTexture()
+{
+	texture.loadFromFile(getTextureName());
+}
+
+sf::Texture Entity::getTexture()
+{
+	return this->texture;
+}
+
 //void Entity::setRectSourceSprite(int q, int w, int e, int r)
 //{
 //	this->rectSourceSprite

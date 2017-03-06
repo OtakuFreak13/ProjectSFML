@@ -3,10 +3,11 @@
 
 #include"SFML\Graphics.hpp"
 #include<string>
+#include<iostream>
 
 using namespace std;
 
-class Entity
+class Entity :public sf::Drawable
 {
 private:
 	sf::Texture texture;
@@ -21,6 +22,9 @@ public:
 	virtual ~Entity();
 	//virtual void Update(float dt, float x = 1.0f, float y = 1.0f) = 0;//Om jag inte ska ha denna klass för items så kan jag ha med denna raden.
 	void setTextureName(string fileName);
+	string getTextureName();
+	void loadTexture();
+	sf::Texture getTexture();
 	//void setRectSourceSprite(int q, int w, int e, int r);
 };
 

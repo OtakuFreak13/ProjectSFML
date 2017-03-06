@@ -155,14 +155,16 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="SFMLStuff.props" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Image\16bitmap.jpg" />
+    <Image Include="Image\goblinsword.png" />
+    <Image Include="Image\goblinSwordBlue.png" />
+    <Image Include="Image\objects.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
