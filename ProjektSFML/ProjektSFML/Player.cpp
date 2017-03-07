@@ -39,59 +39,79 @@ void Player::Update(float dt)
 	float y = 1.0f;
 	sf::Vector2f direction(0.0f, 0.0f);
 
-
-	 if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	 {
-		 //std::cout << "Player Moved Left" << endl;
-		 direction.x = -x;
-		 keyFrameDuration += dt;
-		 currentKeyFrame.y = 3;
-	 }
-	 else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	 {
-		 direction.x = x;
-		 keyFrameDuration += dt;
-		 currentKeyFrame.y = 1;
-	 }
-	 else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	 {
-		 direction.y = y;
-		 keyFrameDuration += dt;
-		 currentKeyFrame.y = 0;
-	 }
-	 else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	 {
-		 direction.y = -y;
-		 keyFrameDuration += dt;
-		 currentKeyFrame.y = 2;
-	 }
-
-
-
-	spriteSheet.move(direction * playerSpeed * dt);
-
-	// Update animation
-	if (keyFrameDuration >= animationSpeed)
+	if (this->health <= 0)
 	{
-		currentKeyFrame.x++;
-
-		if (currentKeyFrame.x >= spriteSheetWidth)
+		// death animation
+		currentKeyFrame.y = 4;
+		keyFrameDuration += dt;// 5 * dt;
+		if (keyFrameDuration >= animationSpeed)
 		{
-			currentKeyFrame.x = 0;
+			currentKeyFrame.x++;
+
+			if (currentKeyFrame.x >= 4)
+			{
+				currentKeyFrame.x = 4;
+			}
+
+			spriteSheet.setTextureRect(sf::IntRect(currentKeyFrame.x * keyFrameSize.x, currentKeyFrame.y * keyFrameSize.y, keyFrameSize.x, keyFrameSize.y));
+			keyFrameDuration = 0.0f;
+		}
+	}
+	else
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			//std::cout << "Player Moved Left" << endl;
+			direction.x = -x;
+			keyFrameDuration += dt;
+			currentKeyFrame.y = 3;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			direction.x = x;
+			keyFrameDuration += dt;
+			currentKeyFrame.y = 1;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			direction.y = y;
+			keyFrameDuration += dt;
+			currentKeyFrame.y = 0;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			direction.y = -y;
+			keyFrameDuration += dt;
+			currentKeyFrame.y = 2;
 		}
 
-		spriteSheet.setTextureRect(sf::IntRect(currentKeyFrame.x * keyFrameSize.x, currentKeyFrame.y * keyFrameSize.y, keyFrameSize.x, keyFrameSize.y));
-		keyFrameDuration = 0.0f;
-	}
 
-	//if (collided == true && !wasAttacking && !isAttacking && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-	//{
-	//	isAttacking = true;
-	//}
 
-	if (isAttacking)
-	{
-		this->attack();
+		spriteSheet.move(direction * playerSpeed * dt);
+
+		// Update animation
+		if (keyFrameDuration >= animationSpeed)
+		{
+			currentKeyFrame.x++;
+
+			if (currentKeyFrame.x >= spriteSheetWidth)
+			{
+				currentKeyFrame.x = 0;
+			}
+
+			spriteSheet.setTextureRect(sf::IntRect(currentKeyFrame.x * keyFrameSize.x, currentKeyFrame.y * keyFrameSize.y, keyFrameSize.x, keyFrameSize.y));
+			keyFrameDuration = 0.0f;
+		}
+
+		//if (collided == true && !wasAttacking && !isAttacking && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		//{
+		//	isAttacking = true;
+		//}
+
+		if (isAttacking)
+		{
+			this->attack();
+		}
 	}
 }
 
@@ -142,7 +162,13 @@ void Player::recevieDamage(int damage)
 	}
 }
 
-void Player::death()
+bool Player::death()
 {
-	// death animation
+	bool dead = false;
+	if (this->health <= 0)
+	{
+		dead = true;
+	}
+
+	return dead;
 }

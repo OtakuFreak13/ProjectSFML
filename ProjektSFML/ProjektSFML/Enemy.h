@@ -39,7 +39,7 @@ public:
 	void setIsAttacking(int tf);
 	int attack();
 	void recevieDamage(int damage);
-	bool death();
+	bool death() const;
 	int getHealth();
 };
 

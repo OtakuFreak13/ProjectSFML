@@ -1,9 +1,25 @@
 #include "Enemy.h"
-
+#include <random>
 
 
 Enemy::Enemy() : Entity()
 {
+
+	srand(time(NULL));
+
+	std::random_device rd;
+
+	std::default_random_engine *generator = new std::default_random_engine(rd());
+	std::uniform_int_distribution<int> PosXRandDIST(20, 560);
+	std::uniform_int_distribution<int> PosYRandDIST(20, 420);
+
+
+	int PosXRand = PosXRandDIST(*generator);  // generates number in the range 1..
+	int PosYRand = PosYRandDIST(*generator);  // generates number in the range 1..
+
+
+	
+	int randPos = rand() % 300 +1;
 	//	setTextureName("Image/goblinsword.png");
 		/*sf::Texture texture;*/
 	if (!texture.loadFromFile("Image/goblinSwordBlue.png"))
@@ -13,7 +29,7 @@ Enemy::Enemy() : Entity()
 	//loadTexture();
 	spriteSheet.setTexture(texture);
 	spriteSheet.setTextureRect(sf::IntRect(0, 0, 64, 64));
-	spriteSheet.setPosition(sf::Vector2f(385, 0));
+	spriteSheet.setPosition(sf::Vector2f(PosXRand, PosYRand));
 	currentKeyFrame = sf::Vector2i(0, 0);
 	keyFrameSize = sf::Vector2i(64, 64);
 	spriteSheetWidth = 7;
@@ -21,10 +37,11 @@ Enemy::Enemy() : Entity()
 	animationSpeed = 0.1f;
 	keyFrameDuration = 0.0f;
 
-	srand(time(NULL));
-
-	attackDamage = (rand() % 3) + 1;
-	health = (rand() % 10) + 1;
+	
+	std::uniform_int_distribution<int> attackDamageDIST(1, 3);
+	
+	attackDamage = attackDamageDIST(*generator);// (rand() % 3) + 1;
+	health = 1;//(rand() % 10) + 1;
 
 
 }
@@ -61,7 +78,7 @@ void Enemy::Update(float dt)
 	{
 		// death animation
 		currentKeyFrame.y = 4;
-		keyFrameDuration += 0.5 * dt;
+		keyFrameDuration += dt;// 5 * dt;
 		if (keyFrameDuration >= animationSpeed)
 		{
 			currentKeyFrame.x++;
@@ -202,8 +219,14 @@ void Enemy::Update(float dt)
 	int Enemy::attack()
 	{
 		//animate attack
-		int randNum = rand() % 3;
-		return attackDamage * randNum;
+		std::random_device rd;
+
+		std::default_random_engine *generator = new std::default_random_engine(rd());
+		std::uniform_int_distribution<int> attackDIST(0, 10);
+		
+		int randNum = attackDIST(*generator);
+
+		return attackDamage * randNum/2.5;
 	}
 
 	void Enemy::recevieDamage(int damage)
@@ -211,10 +234,10 @@ void Enemy::Update(float dt)
 		this->health -= damage;
 		cout << damage << " Amount of damage enemy has revcieved! Remaining enemy health: " << this->health << endl;
 	
-			this->death();
+		this->death();
 	}
 
-	bool Enemy::death()
+	bool Enemy::death() const
 	{
 		// death animation
 		bool dead = false;
@@ -222,6 +245,7 @@ void Enemy::Update(float dt)
 		{
 			dead = true;
 		}
+		
 		return dead;
 	}
 

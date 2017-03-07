@@ -40,7 +40,7 @@ public:
 	void setIsAttacking(int tf);
 	int attack();	
 	void recevieDamage(int damage);
-	void death();
+	bool death();
 };
 
 #endif // !PLAYER_H

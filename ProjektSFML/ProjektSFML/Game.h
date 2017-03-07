@@ -11,8 +11,15 @@ private:
 	sf::Texture backgroundTex;
 	sf::Sprite backgroundSprite;
 	Player player;
-	Enemy enemy;
+	//Enemy enemies[10];
+	int EnemiesInArr;
+	Enemy* *enemies;
 	sf::CircleShape ball;
+
+	int deathCounter() const;
+	int lengthOfEnemyArr;
+
+	void renderEnemies(sf::RenderTarget & target, sf::RenderStates states) const;
 
 	sf::Clock delayTime;
 	sf::Time time;
