@@ -172,3 +172,8 @@ bool Player::death()
 
 	return dead;
 }
+
+int Player::getHealth() const
+{
+	return this->health;
+}

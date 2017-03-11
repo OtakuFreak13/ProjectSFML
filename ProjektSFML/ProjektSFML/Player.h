@@ -41,6 +41,8 @@ public:
 	int attack();	
 	void recevieDamage(int damage);
 	bool death();
+	int getHealth() const;
+
 };
 
 #endif // !PLAYER_H
